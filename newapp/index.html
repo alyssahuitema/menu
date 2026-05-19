@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dinner is Served ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #fdf6ee;
+      font-family: 'Lato', sans-serif;
+      color: #3a2e28;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Header ── */
+    header {
+      width: 100%;
+      background-color: #3a2e28;
+      color: #fdf6ee;
+      text-align: center;
+      padding: 2.8rem 1rem 2.4rem;
+    }
+    header .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #d4a96a;
+      margin-bottom: 0.65rem;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+    }
+    header .subtitle {
+      margin-top: 0.8rem;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #c8b8a2;
+      font-style: italic;
+    }
+
+    /* ── Main ── */
+    main {
+      width: 100%;
+      max-width: 680px;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #d4a96a;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Base cards ── */
+    .base-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .base-option input[type="radio"] { display: none; }
+
+    .base-option label {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.1rem 1.3rem;
+      border-radius: 12px;
+      border: 2px solid #e8ddd2;
+      background: #fff;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+    }
+
+    .base-option label:hover {
+      border-color: #d4a96a;
+      box-shadow: 0 2px 14px rgba(212,169,106,0.15);
+    }
+
+    .base-option input:checked + label {
+      border-color: #3a2e28;
+      background: #3a2e28;
+      color: #fdf6ee;
+      box-shadow: 0 4px 20px rgba(58,46,40,0.18);
+    }
+
+    .base-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #d4a96a;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .base-option input:checked + label .base-num {
+      color: #d4a96a;
+    }
+
+    .base-desc {
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .base-desc strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    .base-desc em {
+      font-style: normal;
+      opacity: 0.7;
+      font-size: 0.85rem;
+    }
+
+    /* ── Protein chips ── */
+    .protein-row {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .protein-option input[type="radio"] { display: none; }
+
+    .protein-option label {
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: 2px solid #e8ddd2;
+      background: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: border-color 0.18s, background 0.18s, color 0.18s;
+    }
+
+    .protein-option label:hover {
+      border-color: #d4a96a;
+    }
+
+    .protein-option input:checked + label {
+      background: #3a2e28;
+      border-color: #3a2e28;
+      color: #fdf6ee;
+    }
+
+    /* ── Textarea ── */
+    .notes-field {
+      margin-bottom: 2.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      border: 2px solid #e8ddd2;
+      border-radius: 12px;
+      background: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: #3a2e28;
+      resize: vertical;
+      min-height: 90px;
+      transition: border-color 0.18s;
+      outline: none;
+    }
+
+    textarea::placeholder { color: #b8a898; }
+
+    textarea:focus {
+      border-color: #3a2e28;
+    }
+
+    /* ── Submit ── */
+    button[type="submit"] {
+      width: 100%;
+      padding: 1rem;
+      background: #3a2e28;
+      color: #fdf6ee;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.18s, transform 0.1s;
+    }
+
+    button[type="submit"]:hover {
+      background: #d4a96a;
+      color: #3a2e28;
+    }
+
+    button[type="submit"]:active { transform: scale(0.99); }
+
+    /* ── Thank you screen ── */
+    #thankyou {
+      display: none;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    #thankyou .big-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    #thankyou h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    #thankyou p {
+      font-size: 1rem;
+      color: #7a6555;
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background-color: #3a2e28;
+      color: #c8b8a2;
+      text-align: center;
+      padding: 1.4rem 1rem;
+      font-size: 0.8rem;
+      width: 100%;
+      letter-spacing: 0.04em;
+      margin-top: auto;
+    }
+    footer span { color: #d4a96a; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>The Menu</h1>
+    <div class="subtitle">Pick what you fancy — we'll handle the rest 🍽️</div>
+  </header>
+
+  <main>
+    <form id="order-form">
+
+      <!-- Bases -->
+      <div class="section-heading">Choose your base</div>
+      <div class="base-grid">
+
+        <div class="base-option">
+          <input type="radio" name="base" id="base1" value="Yellow rice with pomegranate seeds + Mediterranean salad"/>
+          <label for="base1">
+            <span class="base-num">1</span>
+            <span class="base-desc">
+              <strong>Yellow rice</strong>
+              <em>with pomegranate seeds + Mediterranean salad</em>
+            </span>
+          </label>
+        </div>
+
+        <div class="base-option">
+          <input type="radio" name="base" id="base2" value="Mushroom orzo + summer salad with tomato, avocado, and corn"/>
+          <label for="base2">
+            <span class="base-num">2</span>
+            <span class="base-desc">
+              <strong>Mushroom orzo</strong>
+              <em>+ summer salad with tomato, avocado &amp; corn</em>
+            </span>
+          </label>
+        </div>
+
+        <div class="base-option">
+          <input type="radio" name="base" id="base3" value="Coconut cream udon noodles + cucumber salad"/>
+          <label for="base3">
+            <span class="base-num">3</span>
+            <span class="base-desc">
+              <strong>Coconut cream udon noodles</strong>
+              <em>+ cucumber salad</em>
+            </span>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Protein -->
+      <div class="section-heading">Add your protein</div>
+      <div class="protein-row">
+        <div class="protein-option">
+          <input type="radio" name="protein" id="steak" value="Steak"/>
+          <label for="steak">🥩 Steak</label>
+        </div>
+        <div class="protein-option">
+          <input type="radio" name="protein" id="chicken" value="Chicken"/>
+          <label for="chicken">🍗 Chicken</label>
+        </div>
+        <div class="protein-option">
+          <input type="radio" name="protein" id="fish" value="Fish"/>
+          <label for="fish">🐟 Fish</label>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="notes-field">
+        <div class="section-heading">Any dietary notes?</div>
+        <textarea name="notes" id="notes" placeholder="Allergies, preferences, anything at all…" rows="3"></textarea>
+      </div>
+
+      <button type="submit">Send my order ✨</button>
+
+    </form>
+
+    <!-- Thank you -->
+    <div id="thankyou">
+      <div class="big-icon">🎉</div>
+      <h2>You're all set!</h2>
+      <p>We've got your order — see you tonight.</p>
+    </div>
+  </main>
+
+  <footer>
+    Made with <span>♥</span> — can't wait to cook for you.
+  </footer>
+
+  <script>
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const base    = document.querySelector('input[name="base"]:checked')?.value    || '';
+      const protein = document.querySelector('input[name="protein"]:checked')?.value || '';
+      const notes   = document.getElementById('notes').value;
+
+      const body = new URLSearchParams({
+        'entry.565828237':  base,
+        'entry.237114726':  protein,
+        'entry.1741983008': notes,
+      });
+
+      // Submit silently to Google Forms (no-cors so no redirect)
+      fetch(
+        'https://docs.google.com/forms/d/e/1FAIpQLSc6Xq6ItsQiX0uKZUttZfm3MuAJkxUJ7KLy91m11aOC52xuIg/formResponse',
+        { method: 'POST', mode: 'no-cors', body }
+      ).catch(() => {});  // swallow — no-cors always "fails" from JS's perspective
+
+      document.getElementById('order-form').style.display = 'none';
+      document.getElementById('thankyou').style.display   = 'block';
+    });
+  </script>
+
+</body>
+</html>
