@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f5f0e8;
+      font-family: 'Cormorant Garamond', serif;
+      color: #1c1208;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Menu card ── */
+    .menu-card {
+      width: 100%;
+      max-width: 640px;
+      margin: 3rem auto 4rem;
+      background: #fffdf8;
+      border: 1px solid #d9cfc0;
+      padding: 3.5rem 3rem 3rem;
+      position: relative;
+    }
+
+    /* Double-rule border effect */
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid #d9cfc0;
+      pointer-events: none;
+    }
+
+    /* ── Header ── */
+    .card-header {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .script-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 8vw, 4.5rem);
+      color: #1c1208;
+      line-height: 1.1;
+    }
+
+    .byline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Ornamental divider ── */
+    .ornament {
+      text-align: center;
+      color: #c8963c;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      margin: 1.4rem 0;
+    }
+
+    /* ── Welcome text ── */
+    .welcome {
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .welcome p {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: #4a3f35;
+      line-height: 1.7;
+    }
+
+    .together-note {
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #a09080;
+      margin-bottom: 0;
+    }
+
+    /* ── Guest section ── */
+    .guest-block {
+      margin-top: 2.2rem;
+    }
+
+    .guest-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #c8963c;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.66rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #8a7a6a;
+      margin-bottom: 0.85rem;
+      margin-top: 1.4rem;
+    }
+
+    /* ── Main options ── */
+    .main-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0;
+    }
+
+    .main-option input[type="radio"] { display: none; }
+
+    .main-option label {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid #ddd5c5;
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+    }
+
+    .main-option label:hover {
+      border-color: #c8963c;
+      background: #fdf8f0;
+    }
+
+    .main-option input:checked + label {
+      border-color: #c8963c;
+      background: #fdf8f0;
+    }
+
+    .main-option input:checked + label .item-num {
+      color: #c8963c;
+    }
+
+    .item-num {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: #c0b0a0;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      padding-top: 0.2rem;
+      min-width: 1.8rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+    }
+
+    .item-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #1c1208;
+    }
+
+    .item-text strong {
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: block;
+    }
+
+    .item-text span {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #7a6a5a;
+    }
+
+    /* ── Protein options ── */
+    .protein-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .protein-option input[type="radio"] { display: none; }
+
+    .protein-option label {
+      padding: 0.6rem 1.3rem;
+      border: 1px solid #ddd5c5;
+      margin-right: -1px;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4a3f35;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      position: relative;
+    }
+
+    .protein-option label:hover {
+      background: #fdf8f0;
+      border-color: #c8963c;
+      z-index: 1;
+    }
+
+    .protein-option input:checked + label {
+      background: #1c1208;
+      color: #f5f0e8;
+      border-color: #1c1208;
+      z-index: 2;
+    }
+
+    /* ── Divider between guests ── */
+    .guest-divider {
+      border: none;
+      border-top: 1px solid #d9cfc0;
+      margin: 2.2rem 0 0;
+    }
+
+    /* ── Notes ── */
+    .notes-wrap {
+      margin-top: 2.2rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid #ddd5c5;
+      background: transparent;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: #1c1208;
+      resize: vertical;
+      min-height: 80px;
+      outline: none;
+      transition: border-color 0.18s;
+      font-style: italic;
+    }
+
+    textarea::placeholder {
+      color: #b8a898;
+      font-style: italic;
+    }
+
+    textarea:focus { border-color: #c8963c; }
+
+    /* ── Submit ── */
+    .submit-wrap {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    button[type="submit"] {
+      padding: 0.85rem 3rem;
+      background: #1c1208;
+      color: #f5f0e8;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      letter-spacing: 0.12em;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    button[type="submit"]:hover {
+      background: #c8963c;
+    }
+
+    /* ── Thank you ── */
+    #thankyou {
+      display: none;
+      text-align: center;
+      padding: 5rem 1rem;
+    }
+
+    #thankyou .script-ty {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #1c1208;
+      margin-bottom: 0.75rem;
+    }
+
+    #thankyou p {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #7a6a5a;
+      line-height: 1.7;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #a09080;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-card">
+
+    <div class="card-header">
+      <div class="script-title">The Menu</div>
+      <div class="byline">by Chefs Maguire &amp; Alyssa</div>
+    </div>
+
+    <div class="ornament">— ✦ —</div>
+
+    <div class="welcome">
+      <p>Dear Dena &amp; Colleen,<br/>
+      the kitchen looks forward to serving you.</p>
+    </div>
+
+    <form id="order-form">
+
+      <div class="section-label" style="margin-top:1.8rem;">Mains &amp; Sides</div>
+      <div class="main-list">
+
+        <div class="main-option">
+          <input type="radio" name="main" id="m1" value="Yellow rice with pomegranate seeds + Mediterranean salad"/>
+          <label for="m1">
+            <span class="item-num">I</span>
+            <span class="item-text">
+              <strong>Yellow Rice</strong>
+              <span>with pomegranate seeds &amp; Mediterranean salad</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="main-option">
+          <input type="radio" name="main" id="m2" value="Mushroom orzo + summer salad with tomato, avocado, and corn"/>
+          <label for="m2">
+            <span class="item-num">II</span>
+            <span class="item-text">
+              <strong>Mushroom Orzo</strong>
+              <span>with summer salad of tomato, avocado &amp; corn</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="main-option">
+          <input type="radio" name="main" id="m3" value="Coconut cream udon noodles + cucumber salad"/>
+          <label for="m3">
+            <span class="item-num">III</span>
+            <span class="item-text">
+              <strong>Coconut Cream Udon</strong>
+              <span>with cucumber salad</span>
+            </span>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="section-label" style="margin-top:1.6rem;">Protein</div>
+      <div class="protein-row">
+        <div class="protein-option">
+          <input type="radio" name="protein" id="steak" value="Steak"/>
+          <label for="steak">Steak</label>
+        </div>
+        <div class="protein-option">
+          <input type="radio" name="protein" id="chicken" value="Chicken"/>
+          <label for="chicken">Chicken</label>
+        </div>
+        <div class="protein-option">
+          <input type="radio" name="protein" id="fish" value="Fish"/>
+          <label for="fish">Fish</label>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="notes-wrap">
+        <div class="section-label">Dietary notes, allergies &amp; preferences</div>
+        <textarea id="notes" placeholder="Anything the kitchen should know…" rows="3"></textarea>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit">Send our order</button>
+      </div>
+
+    </form>
+
+    <!-- Thank you -->
+    <div id="thankyou">
+      <div class="script-ty">Thank you</div>
+      <p>The kitchen has received your selections.</p>
+    </div>
+
+  </div>
+
+  <footer>Chefs Maguire &amp; Alyssa &nbsp;·&nbsp; with love</footer>
+
+  <script>
+    document.getElementById('order-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const bases   = document.querySelector('input[name="main"]:checked')?.value    || '';
+      const protein = document.querySelector('input[name="protein"]:checked')?.value || '';
+      const notes   = document.getElementById('notes').value;
+
+      const body = new URLSearchParams({
+        'entry.565828237':  bases,
+        'entry.237114726':  protein,
+        'entry.1741983008': notes,
+      });
+
+      fetch(
+        'https://docs.google.com/forms/d/e/1FAIpQLSc6Xq6ItsQiX0uKZUttZfm3MuAJkxUJ7KLy91m11aOC52xuIg/formResponse',
+        { method: 'POST', mode: 'no-cors', body }
+      ).catch(() => {});
+
+      document.getElementById('order-form').style.display = 'none';
+      document.getElementById('thankyou').style.display   = 'block';
+    });
+  </script>
+
+</body>
+</html>
